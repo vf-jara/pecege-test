@@ -46,7 +46,7 @@ export default function Contacts() {
       sortedData !== undefined && sortedData.length>0?
       sortedData?.map((contact) => (
         <Link to={`details/${contact.id}`}>
-          <ListCard id={contact.id} name={contact.name} phone={contact.phone} email={contact.email}/>
+          <ListCard contact={contact}/>
         </Link>
       ))
       :
