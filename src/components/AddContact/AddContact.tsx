@@ -3,7 +3,7 @@ import { useContactsContext } from '../../context/ContactsContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function AddContact() {
-  const { data, AddContact } = useContactsContext();
+  const { data, addContact } = useContactsContext();
   const navigate = useNavigate();
 
   const [name, setName] = useState<string>('');
@@ -25,7 +25,7 @@ export default function AddContact() {
     };
 
     // Chame a função para adicionar o novo contato
-    AddContact(newContact);
+    addContact(newContact);
 
     // Limpe os campos de entrada após adicionar o contato
     setName('');

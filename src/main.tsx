@@ -6,6 +6,7 @@ import Contacts from './components/Contacts/Contacts.tsx'
 import { ContactsProvider } from './context/ContactsContext.tsx'
 import Details from './components/Details/Details.tsx'
 import AddContact from './components/AddContact/AddContact.tsx'
+import EditContact from './components/EditContact/EditContact.tsx'
 
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path:"/addContact",
         element:<AddContact/>
+      },
+      {
+        path:"/editContact/:id",
+        element:<EditContact/>
       }
       
     ]

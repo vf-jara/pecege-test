@@ -13,7 +13,8 @@ type Data = {
 
 type ContextType ={
     data: Data[] | undefined,
-    AddContact: (newContact: Data) => void;
+    addContact: (newContact: Data) => void;
+    updateContact: (updatedContact: Data) => void;
 }  
 
 export const ContactsContext = createContext<ContextType | undefined>(undefined)
@@ -35,12 +36,20 @@ export const ContactsProvider = ({children}: ChildrenProviderProps) => {
         })
     },[])
 
-    const AddContact = (newContact : Data) => {
+    const addContact = (newContact : Data) => {
         setData((prevData) => [...prevData, newContact])
     }
 
+    const updateContact = (updatedContact: Data) => {
+        setData((prevData) =>
+          prevData.map((contact) =>
+            contact.id === updatedContact.id ? updatedContact : contact
+          )
+        );
+      };
+
     return (
-        <ContactsContext.Provider value={{data, AddContact}}>
+        <ContactsContext.Provider value={{data, addContact, updateContact}}>
             {children}
         </ContactsContext.Provider>
 )}
