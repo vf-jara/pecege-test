@@ -9,15 +9,18 @@ export default function Details() {
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
 
 
-  // Find the contact with the matching id
+  // Encontre o contato com o Id correspondente
   const contact = data?.find((contact) => contact.id.toString() === id);
 
   const handleEditClick = () => {
     navigate(`/editContact/${contact?.id}`)
   }
+
+  //Abra a modal para deletar o contato
   const handleDeleteClick = () => {
     setShowConfirmation(true);
   };
+
   const handleDeleteConfirm = () => {
     // Chame a função para deletar o contato
     if(id!==undefined){

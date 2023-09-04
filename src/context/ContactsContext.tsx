@@ -34,13 +34,16 @@ export const ContactsProvider = ({children}: ChildrenProviderProps) => {
                 email: item.email,
               }));
             setData(filteredData)
+            //Os contatos são buscados e salvos em um state, é nesse state que todas as manipulações como adição, edição e remoção irão acontecer, uma vez que a API de busca de dados não permite modificação dos dados no lado servidor.
         })
     },[])
 
+    //função para adição de contatos
     const addContact = (newContact : Data) => {
         setData((prevData) => [...prevData, newContact])
     }
 
+    //função para edição de contatos
     const updateContact = (updatedContact: Data) => {
         setData((prevData) =>
           prevData.map((contact) =>
@@ -49,8 +52,8 @@ export const ContactsProvider = ({children}: ChildrenProviderProps) => {
         );
     };
 
+    //função para deleção de contatos
     const deleteContact = (idToDelete: number) => {
-        // Filtra os contatos, removendo o contato com o ID a ser excluído
         const updatedData = data?.filter((contact) => contact.id !== idToDelete);
     
         setData(updatedData || []);
