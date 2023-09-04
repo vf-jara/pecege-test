@@ -1,20 +1,22 @@
 import {HomeContainer, Sidebar, ContentsContainer} from './Home.styles.js'
-import Button from '../components/Button/Button.tsx'
+import { Outlet } from 'react-router-dom'
 export default function Home() {
+
+
   return (
     <>
     <HomeContainer>
       <Sidebar>
         sidebar
-        <Button>
+        <button>
           Home
-        </Button>
-        <Button>
+        </button>
+        <button>
           Adicionar Contato
-        </Button>
+        </button>
       </Sidebar>
       <ContentsContainer>
-        Meu outlet  
+        <Outlet/>
       </ContentsContainer>
     </HomeContainer>
     </>
