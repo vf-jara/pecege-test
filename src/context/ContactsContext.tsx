@@ -15,6 +15,7 @@ type ContextType ={
     data: Data[] | undefined,
     addContact: (newContact: Data) => void;
     updateContact: (updatedContact: Data) => void;
+    deleteContact: (idToDelete: number) => void;
 }  
 
 export const ContactsContext = createContext<ContextType | undefined>(undefined)
@@ -46,10 +47,17 @@ export const ContactsProvider = ({children}: ChildrenProviderProps) => {
             contact.id === updatedContact.id ? updatedContact : contact
           )
         );
-      };
+    };
+
+    const deleteContact = (idToDelete: number) => {
+        // Filtra os contatos, removendo o contato com o ID a ser excluído
+        const updatedData = data?.filter((contact) => contact.id !== idToDelete);
+    
+        setData(updatedData || []);
+    };
 
     return (
-        <ContactsContext.Provider value={{data, addContact, updateContact}}>
+        <ContactsContext.Provider value={{data, addContact, updateContact, deleteContact}}>
             {children}
         </ContactsContext.Provider>
 )}
