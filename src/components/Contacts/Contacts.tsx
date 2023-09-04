@@ -8,7 +8,7 @@ export default function Contacts() {
   return (
     <>
       {
-      data?.length>0?
+      data !== undefined && data.length>0?
       data?.map((contact) => (
         <ListCard id={contact.id} name={contact.name} phone={contact.phone} email={contact.email}/>
       ))

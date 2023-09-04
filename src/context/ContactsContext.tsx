@@ -45,6 +45,7 @@ export const ContactsProvider = ({children}: ChildrenProviderProps) => {
         </ContactsContext.Provider>
 )}
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useContactsContext(){
     const context = useContext(ContactsContext)
     if(context === undefined){
