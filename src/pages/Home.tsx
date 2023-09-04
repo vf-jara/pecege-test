@@ -11,9 +11,9 @@ export default function Home() {
         <Link to={"/"}>
           Home
         </Link>
-        <button>
+        <Link to={"/addContact"}>
           Adicionar Contato
-        </button>
+        </Link>
       </Sidebar>
       <ContentsContainer>
         <Outlet/>

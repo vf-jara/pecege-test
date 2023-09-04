@@ -5,6 +5,7 @@ import Home from './pages/Home.tsx'
 import Contacts from './components/Contacts/Contacts.tsx'
 import { ContactsProvider } from './context/ContactsContext.tsx'
 import Details from './components/Details/Details.tsx'
+import AddContact from './components/AddContact/AddContact.tsx'
 
 
 const router = createBrowserRouter([
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path:"/details/:id",
         element: <Details/>
+      },
+      {
+        path:"/addContact",
+        element:<AddContact/>
       }
       
     ]
