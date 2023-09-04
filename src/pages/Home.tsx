@@ -1,5 +1,5 @@
 import {HomeContainer, Sidebar, ContentsContainer} from './Home.styles.js'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 export default function Home() {
 
 
@@ -8,9 +8,9 @@ export default function Home() {
     <HomeContainer>
       <Sidebar>
         sidebar
-        <button>
+        <Link to={"/"}>
           Home
-        </button>
+        </Link>
         <button>
           Adicionar Contato
         </button>

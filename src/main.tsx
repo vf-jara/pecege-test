@@ -4,6 +4,7 @@ import { GlobalStyle } from './Global.style.ts'
 import Home from './pages/Home.tsx'
 import Contacts from './components/Contacts/Contacts.tsx'
 import { ContactsProvider } from './context/ContactsContext.tsx'
+import Details from './components/Details/Details.tsx'
 
 
 const router = createBrowserRouter([
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Contacts/>
       },
+      {
+        path:"/details/:id",
+        element: <Details/>
+      }
       
     ]
   }

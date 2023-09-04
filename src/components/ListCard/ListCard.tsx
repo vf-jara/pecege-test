@@ -1,3 +1,5 @@
+import { CardContainer } from "./ListCard.style"
+
 type CardProps = {
     id: number,
     name: string,
@@ -7,11 +9,8 @@ type CardProps = {
 
 export default function ListCard({id, name, phone, email} : CardProps) {
   return (
-    <div>
-        {id}
+    <CardContainer>
         {name}
-        {phone}
-        {email}
-    </div>
+    </CardContainer>
   )
 }
