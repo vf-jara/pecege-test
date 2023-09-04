@@ -1,16 +1,17 @@
 import {HomeContainer, Sidebar, ContentsContainer} from './Home.styles.js'
+import Button from '../components/Button/Button.tsx'
 export default function Home() {
   return (
     <>
     <HomeContainer>
       <Sidebar>
-      sidebar
-      <button>
-        Home
-      </button>
-      <button>
-        Adicionar Contato
-      </button>
+        sidebar
+        <Button>
+          Home
+        </Button>
+        <Button>
+          Adicionar Contato
+        </Button>
       </Sidebar>
       <ContentsContainer>
         Meu outlet  
