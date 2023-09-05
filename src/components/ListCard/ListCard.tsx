@@ -14,7 +14,12 @@ type CardProps = {
 export default function ListCard({contact} : CardProps) {
   return (
     <CardContainer>
-        {contact.name}
+        <div className="image">
+          <img src={`https://robohash.org/"${contact.name}".png?set=set2`} alt="" />
+        </div>
+        <div className="name">
+         {contact.name}
+        </div>
     </CardContainer>
   )
 }

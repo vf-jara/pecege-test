@@ -44,7 +44,7 @@ export default function Details() {
         <div>
           <div>Details {contact.id}</div>
           <div>
-            <img src={`https://robohash.org/"${contact.id}".jpg`} height={80}></img>
+            <img src={`https://robohash.org/"${contact.name}".png?set=set2`} height={80}></img>
             <h2>{contact.name}</h2>
             <p>Phone: {contact.phone}</p>
             <p>E-mail: {contact.email}</p>
