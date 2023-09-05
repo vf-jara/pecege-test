@@ -43,7 +43,7 @@ export const StyledButton = styled.button<ButtonProps>`
     props.variant === 'green' &&
     `
     background-color: rgb(2, 250, 85, 0.8);
-  `} 88
+  `}
 
   /* Estilos para a variante 'red' */
   ${(props) =>
