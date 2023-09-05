@@ -21,6 +21,7 @@ export const Sidebar = styled.div`
   @media(max-width:480px){
     width: 100%;
     position: fixed;
+    z-index: 999;
     bottom: 0;
   }
   & img{
@@ -43,7 +44,7 @@ export const NavigationContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap:5px;
-    & > span{
+    & span{
       font-size: 12px;
     }
   }
@@ -53,5 +54,4 @@ export const NavigationContainer = styled.div`
 export const ContentsContainer = styled.div`
   width: 100%;
   height: 100%;
-  padding: 1rem;
 `;

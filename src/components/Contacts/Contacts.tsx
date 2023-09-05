@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import ListCard from '../ListCard/ListCard';
 import { useQuery } from '@tanstack/react-query'
 import { fetchContacts } from '../../api/api';
+import SearchIcon from '@mui/icons-material/Search';
+import { SearchBar, SortContainer, ContactsContainer, Navigation, ListContainer } from './Contacts.style';
 
 interface Data {
   id: number;
@@ -46,26 +48,35 @@ export default function Contacts() {
   }
 
   return (
-    <>
-      <select value={orderBy} onChange={handleOrderByChange}>
-        <option value="name">Ordenar por Nome</option>
-        <option value="id">Ordenar por ID</option>
-      </select>
-      <input
-        type="text"
-        placeholder="Buscar por nome"
-        value={searchQuery}
-        onChange={handleSearchChange}
-      />
-      {filteredData !== undefined && filteredData.length > 0 ? (
-        filteredData.map((contact) => (
-          <Link to={`details/${contact.id}`} key={contact.id}>
-            <ListCard contact={contact} />
-          </Link>
-        ))
-      ) : (
-        "Nenhum Contato Encontrado"
-      )}
-    </>
+    <ContactsContainer>
+      <Navigation>
+        <SearchBar>
+          <SearchIcon/>
+          <input
+            type="text"
+            placeholder="Buscar por nome"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            />
+        </SearchBar>
+        <SortContainer>
+          <select value={orderBy} onChange={handleOrderByChange}>
+            <option value="name">Ordenar por Nome</option>
+            <option value="id">Ordenar por ID</option>
+          </select>
+        </SortContainer>
+      </Navigation>
+      <ListContainer>
+        {filteredData !== undefined && filteredData.length > 0 ? (
+          filteredData.map((contact) => (
+            <Link to={`details/${contact.id}`} key={contact.id}>
+              <ListCard contact={contact} />
+            </Link>
+          ))
+          ) : (
+            "Nenhum Contato Encontrado"
+            )}
+      </ListContainer>
+    </ContactsContainer>
   );
 }
