@@ -16,6 +16,7 @@ export const Sidebar = styled.div`
   width: 20%;
   padding: 1rem;
   display: flex;
+  gap: 15px;
   flex-direction: column;
   @media(max-width:480px){
     width: 100%;
