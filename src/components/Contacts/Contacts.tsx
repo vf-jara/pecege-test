@@ -4,7 +4,8 @@ import ListCard from '../ListCard/ListCard';
 import { useQuery } from '@tanstack/react-query'
 import { fetchContacts } from '../../api/api';
 import SearchIcon from '@mui/icons-material/Search';
-import { SearchBar, SortContainer, ContactsContainer, Navigation, ListContainer } from './Contacts.style';
+import { SearchBar, SortContainer, ContactsContainer, Navigation, ListContainer, LoadingContainer } from './Contacts.style';
+import { ProgressBar } from 'react-loader-spinner';
 
 interface Data {
   id: number;
@@ -40,8 +41,21 @@ export default function Contacts() {
   );
 
   if (isLoading) {
-    return <div>Carregando...</div>;
-  }
+    return(
+      <ContactsContainer>
+        <LoadingContainer>
+          <ProgressBar
+            height="80"
+            width="80"
+            ariaLabel="progress-bar-loading"
+            wrapperStyle={{}}
+            wrapperClass="progress-bar-wrapper"
+            borderColor = '#f20c3a'
+            barColor = '#f20c3a'
+          />
+          </LoadingContainer>
+        </ContactsContainer>
+)}
 
   if (isError) {
     return <div>Erro ao carregar os contatos</div>;
