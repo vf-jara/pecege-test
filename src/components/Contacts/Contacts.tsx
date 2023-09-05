@@ -1,7 +1,8 @@
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useContactsContext } from '../../context/ContactsContext';
 import ListCard from '../ListCard/ListCard';
+import { useQuery } from '@tanstack/react-query'
+import { fetchContacts } from '../../api/api';
 
 interface Data {
   id: number;
@@ -11,18 +12,9 @@ interface Data {
 }
 
 export default function Contacts() {
-  const { data } = useContactsContext();
+  const { data: contacts, isLoading, isError } = useQuery(['contacts'], fetchContacts)
   const [orderBy, setOrderBy] = useState<string>('id'); //state para decidir qual tipo de ordenação será aplicada
-  const [sortedData, setSortedData] = useState<Data[] | undefined>(data); //State para ordenação
   const [searchQuery, setSearchQuery] = useState<string>(''); // State para busca
-
-  useEffect(() => {
-    // Ordenar os dados sempre que o valor de 'orderBy' ou 'data' mudar
-    if (data) {
-      setSortedData(sortContacts(data));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, orderBy]);
 
   const handleOrderByChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setOrderBy(event.target.value);
@@ -41,10 +33,17 @@ export default function Contacts() {
     }
   };
 
-  // Filtrar os dados baseado no que é digitado na barra de buscas
-  const filteredData = sortedData?.filter((contact) =>
+  const filteredData = sortContacts(contacts)?.filter((contact) =>
     contact.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  if (isLoading) {
+    return <div>Carregando...</div>;
+  }
+
+  if (isError) {
+    return <div>Erro ao carregar os contatos</div>;
+  }
 
   return (
     <>
@@ -65,7 +64,7 @@ export default function Contacts() {
           </Link>
         ))
       ) : (
-        "No matching contacts"
+        "Nenhum Contato Encontrado"
       )}
     </>
   );

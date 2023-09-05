@@ -1,47 +1,44 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useContactsContext } from '../../context/ContactsContext';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { editContact, fetchContacts } from '../../api/api';
 
 export default function EditContact() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, updateContact } = useContactsContext();
+  const queryClient = useQueryClient();
 
-  const [name, setName] = useState<string>('');
-  const [phone, setPhone] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  // Obtém os dados dos contatos usando React Query
+  const { data: contactsData } = useQuery(['contacts'], fetchContacts);
 
-  useEffect(() => {
-    // Encontre o contato com o ID correspondente
-    const contact = data?.find((contact) => contact.id.toString() === id);
+  // Encontra o contato com o ID correspondente diretamente dos dados obtidos
+  const contact = contactsData?.find((contact) => contact.id.toString() === id);
 
-    // Preencha os campos de entrada com os dados do contato
-    if (contact) {
-      setName(contact.name);
-      setPhone(contact.phone);
-      setEmail(contact.email);
-    }
-  }, [data, id]);
+  const [name, setName] = useState<string>(contact?.name || '');
+  const [phone, setPhone] = useState<string>(contact?.phone || '');
+  const [email, setEmail] = useState<string>(contact?.email || '');
 
   const handleSave = () => {
-    // Verifique se todos os campos estão preenchidos antes de salvar as alterações
+    // Verifica se todos os campos estão preenchidos antes de salvar as alterações
     if (name.trim() === '' || phone.trim() === '' || email.trim() === '') {
       alert('Por favor, preencha todos os campos.');
       return;
     }
 
-    // Crie um objeto com as informações atualizadas do contato
+    // Cria um objeto com as informações atualizadas do contato
     const updatedContact = {
-      id: parseInt(id ?? '0', 10), // Certifique-se de que o ID seja um número
+      id: parseInt(id ?? '1', 10), // Certifica de que o ID seja um número
       name,
       phone,
       email,
     };
 
-    // Atualize o contato no contexto
-    updateContact(updatedContact);
+    // Atualiza o contato 
+    const updatedContactsData = editContact(contactsData!, updatedContact)
+    // Atualiza os dados na consulta usando o queryClient
+    queryClient.setQueryData(['contacts'], updatedContactsData);
 
-    // Redirecione de volta à página de detalhes após a edição
+    // Redireciona de volta à página de detalhes após a edição
     navigate(`/details/${id}`);
   };
 

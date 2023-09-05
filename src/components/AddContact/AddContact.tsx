@@ -1,44 +1,38 @@
 import { useState } from 'react';
-import { useContactsContext } from '../../context/ContactsContext';
 import { useNavigate } from 'react-router-dom';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { addContact, fetchContacts } from '../../api/api';
 
 export default function AddContact() {
-  const { data, addContact } = useContactsContext();
-  const navigate = useNavigate();
-
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  
+  const { data: contactsData } = useQuery(['contacts'], fetchContacts);
 
+  //Função para salvar o novo contato
   const saveNewContact = () => {
-    // Verifique se todos os campos estão preenchidos antes de adicionar o contato
-    if (name.trim() === '' || phone.trim() === '' || email.trim() === '') {
-      alert('Por favor, preencha todos os campos.');
-      return;
-    }
 
     const newContact = {
-      id: getNextId(),
+      id : -1,
       name,
       phone,
       email,
     };
 
-    // Chame a função para adicionar o novo contato
-    addContact(newContact);
+    // Atualiza os dados dos contatos com o novo contato
+    const updatedContactsData = addContact(contactsData!, newContact)
+    queryClient.setQueryData(['contacts'], updatedContactsData);
 
-    // Limpe os campos de entrada após adicionar o contato
+    // Limpa os campos de entrada após adicionar o contato
     setName('');
     setPhone('');
     setEmail('');
 
-    navigate(`/details/${newContact.id}`)
-  };
-
-  // Implemente a função getNextId para gerar um novo ID com base nos contatos existentes
-  const getNextId = (): number  => {
-    const maxId = data?.reduce((max, contact) => (contact.id > max ? contact.id : max), -1);
-    return (maxId ?? -1)+ 1;
+    navigate(`/details/${newContact.id}`);
   };
 
   return (

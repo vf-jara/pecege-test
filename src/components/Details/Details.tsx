@@ -1,42 +1,50 @@
 import { useState } from 'react'
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useContactsContext } from "../../context/ContactsContext";
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { fetchContacts, removeContactFromData } from '../../api/api';
 
 export default function Details() {
   const { id } = useParams();
-  const { data, deleteContact } = useContactsContext();
   const navigate = useNavigate()
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+  const queryClient = useQueryClient();
 
+  // Obtém os dados dos contatos usando React Query
+  const { data: contactsData } = useQuery(['contacts'], fetchContacts);
 
-  // Encontre o contato com o Id correspondente
-  const contact = data?.find((contact) => contact.id.toString() === id);
+  // Encontra o contato com o ID correspondente diretamente dos dados obtidos
+  const contact = contactsData?.find((item) => item.id === (id? parseInt(id,10) : 0));
 
   const handleEditClick = () => {
     navigate(`/editContact/${contact?.id}`)
   }
 
-  //Abra a modal para deletar o contato
+  // Abre a modal para deletar o contato
   const handleDeleteClick = () => {
     setShowConfirmation(true);
   };
 
-  const handleDeleteConfirm = () => {
-    // Chame a função para deletar o contato
-    if(id!==undefined){
-        deleteContact(parseInt(id,10));
-    }
+  const handleDeleteConfirm = async () => {
+    if (id !== undefined) {
+      // Remove o contato da lista de contatos em memória
+      const updatedContactsData = removeContactFromData(contact?.id || 0, contactsData!);
 
-    // Redirecione de volta à lista de contatos após a exclusão
-    navigate('/');
+      // Atualiza os dados na consulta
+      queryClient.setQueryData(['contacts'], updatedContactsData);
+
+      // Redireciona de volta à lista de contatos após a exclusão
+      navigate('/');
+    }
   };
 
+ 
   return (
     <>
       {contact ? (
         <div>
           <div>Details {contact.id}</div>
           <div>
+            <img src={`https://robohash.org/"${contact.id}".jpg`} height={80}></img>
             <h2>{contact.name}</h2>
             <p>Phone: {contact.phone}</p>
             <p>E-mail: {contact.email}</p>
@@ -53,9 +61,8 @@ export default function Details() {
           )}
         </div>
       ) : (
-        <div>Contact not found</div>
+        <div>Nenhum Contato Encontrado</div>
       )}
     </>
   );
 }
-
