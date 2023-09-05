@@ -5,9 +5,6 @@ export const HomeContainer = styled.div`
   min-height: 100vh;
   display: flex;
   position:relative;
-  @media(max-width:480px){
-    flex-direction: column-reverse;
-  }
 `;
 
 export const Sidebar = styled.div`
@@ -54,4 +51,6 @@ export const NavigationContainer = styled.div`
 export const ContentsContainer = styled.div`
   width: 100%;
   height: 100%;
+  padding: 15px;
+  display: block;
 `;

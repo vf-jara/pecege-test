@@ -2,10 +2,8 @@ import { styled } from 'styled-components'
 
 export const ContactsContainer = styled.div`
     width: 60%;
-    padding: 10px 20px;
     @media(max-width:780px){
         width: 100%;
-        padding: 10px 10px;
     }
 `;
 
@@ -59,5 +57,6 @@ export const ListContainer = styled.div`
     z-index: -1;
     @media(max-width:480px){
         padding-top: 120px;
+        padding-bottom: 80px;
     }
 `;
