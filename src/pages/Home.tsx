@@ -1,8 +1,9 @@
 import Button from '../components/Button/Button.js'
-import {HomeContainer, Sidebar, ContentsContainer} from './Home.styles.js'
+import {HomeContainer, Sidebar, ContentsContainer, NavigationContainer} from './Home.styles.js'
 import { Link, Outlet } from 'react-router-dom'
 import ContactsIcon from '@mui/icons-material/Contacts';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import Logo from '../assets/logo-fixed.svg'
 
 export default function Home() {
 
@@ -11,18 +12,19 @@ export default function Home() {
     <>
     <HomeContainer>
       <Sidebar>
-        sidebar
-        <Link to={"/"}>
-          <Button variant='default' >
-            <ContactsIcon fontSize='small' color="inherit"/> Contatos
-          </Button>
-        </Link>
-        <Link to={"/addContact"}>
-          <Button variant='green' >
-            <PersonAddIcon fontSize='small' color='inherit'/> Adicionar Contato
-          </Button>
-        </Link>
-
+        <img src={Logo}></img>
+        <NavigationContainer>
+          <Link to={"/"}>
+            <Button variant='default' >
+              <ContactsIcon fontSize='inherit' color="inherit"/><span>Contatos</span>
+            </Button>
+          </Link>
+          <Link to={"/addContact"}>
+            <Button variant='green' >
+              <PersonAddIcon fontSize='inherit' color='inherit'/><span>Adicionar Contato</span> 
+            </Button>
+          </Link>
+        </NavigationContainer>
       </Sidebar>
       <ContentsContainer>
         <Outlet/>

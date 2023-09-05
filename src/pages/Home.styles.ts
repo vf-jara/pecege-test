@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.div`
   width: 100%;
-  height: 100%;
   min-height: 100vh;
-  border: 1px solid red;
   display: flex;
+  position:relative;
   @media(max-width:480px){
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 `;
 
@@ -18,9 +17,37 @@ export const Sidebar = styled.div`
   display: flex;
   gap: 15px;
   flex-direction: column;
+  background-color: white;
   @media(max-width:480px){
     width: 100%;
+    position: fixed;
+    bottom: 0;
   }
+  & img{
+    margin-bottom: 20px;
+    @media(max-width:480px){
+      display:none;
+      margin-bottom: 0;
+    }
+  }
+  @media(min-width:481px) and (max-width: 780px){
+    width: 30%;
+  }
+`;
+export const NavigationContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  @media(max-width:480px){
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:5px;
+    & > span{
+      font-size: 12px;
+    }
+  }
+
 `;
 
 export const ContentsContainer = styled.div`

@@ -33,16 +33,24 @@ export const StyledButton = styled.button<ButtonProps>`
     box-shadow: none; 
   }
 
+  &:hover{
+    background-color: #e8e8ef;
+  }
+
   &:active {
     transform: scale(0.95);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
   }
+
 
   /* Estilos para a variante 'green' */
   ${(props) =>
     props.variant === 'green' &&
     `
     background-color: rgb(2, 250, 85, 0.8);
+    &:hover{
+        background-color: rgb(2,250,99);
+    }
   `}
 
   /* Estilos para a variante 'red' */

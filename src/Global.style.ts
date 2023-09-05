@@ -29,5 +29,8 @@ export const GlobalStyle = createGlobalStyle`
         text-decoration: none;
         font-family: Poppins;
         font-size: 16px;
+        a{
+            -webkit-tap-highlight-color: transparent;
+        }
     }
 `
