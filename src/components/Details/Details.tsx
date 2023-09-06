@@ -2,6 +2,11 @@ import { useState } from 'react'
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { fetchContacts, removeContactFromData } from '../../api/api';
+import Button from '../Button/Button';
+import { DetailsContainer, AvatarContainer, ContactData, ButtonsContainer, Modal } from './Details.style'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Details() {
   const { id } = useParams();
@@ -18,6 +23,7 @@ export default function Details() {
   const handleEditClick = () => {
     navigate(`/editContact/${contact?.id}`)
   }
+
 
   // Abre a modal para deletar o contato
   const handleDeleteClick = () => {
@@ -41,25 +47,48 @@ export default function Details() {
   return (
     <>
       {contact ? (
-        <div>
-          <div>Details {contact.id}</div>
-          <div>
-            <img src={`https://robohash.org/"${contact.name}".png?set=set2`} height={80}></img>
-            <h2>{contact.name}</h2>
-            <p>Phone: {contact.phone}</p>
-            <p>E-mail: {contact.email}</p>
-          </div>
-          <button onClick={handleEditClick}>Editar</button>
-          <button onClick={handleDeleteClick}>Excluir</button>  
-          <Link to="/">Voltar para a lista de contatos</Link>
+        <>
+        <DetailsContainer>
+            <AvatarContainer>
+              <img src={`https://robohash.org/"${contact.name}".png?set=set2`}></img>
+            </AvatarContainer>
+            <ContactData>
+              <h2><b>{contact.name}</b></h2>
+              <p><b>Phone:</b> {contact.phone}</p>
+              <p><b>E-mail:</b> {contact.email}</p>
+            </ContactData>
+          <ButtonsContainer>
+            <Button variant={'default'} onClick={handleEditClick}>
+             <EditIcon fontSize='small' color='inherit'/> 
+             <span>
+              Editar Contato
+             </span>
+            </Button>
+            <Button variant={'red'} onClick={handleDeleteClick}>
+              <DeleteForeverIcon fontSize='small' color='inherit'/>
+              <span>
+                Excluir Contato
+              </span>
+            </Button>
+          </ButtonsContainer>
+          <Link to="/" className='return'><CloseIcon color='error' fontSize='large'/></Link>
+          </DetailsContainer>
           {showConfirmation && (
-            <div>
-              <p>Tem certeza de que deseja excluir este contato?</p>
-              <button onClick={handleDeleteConfirm}>Sim</button>
-              <button onClick={() => setShowConfirmation(false)}>Não</button>
-            </div>
+            <Modal onClick={(e) => {
+              if(e.target === e.currentTarget){
+                setShowConfirmation(false);
+              }
+            }}>
+              <div>
+                <p>Tem certeza de que deseja excluir {contact.name}?</p>
+                <div>
+                  <Button variant='red' onClick={handleDeleteConfirm}>Sim</Button>
+                  <Button variant='default' onClick={() => setShowConfirmation(false)}>Não</Button>
+                </div>
+              </div>
+            </Modal>
           )}
-        </div>
+          </>
       ) : (
         <div>Nenhum Contato Encontrado</div>
       )}

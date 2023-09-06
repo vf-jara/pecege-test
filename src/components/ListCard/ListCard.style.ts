@@ -20,7 +20,7 @@ export const CardContainer = styled.div`
 
     > .image{
         display: flex;
-        background-color: #F20C3A;
+        background-color: rgba(205,0,40);
         border-radius: 50%;
         overflow: hidden;
         > img{

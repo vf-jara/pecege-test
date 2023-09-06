@@ -65,6 +65,5 @@ export const ListContainer = styled.div`
     z-index: -1;
     @media(max-width:480px){
         padding-top: 120px;
-        padding-bottom: 80px;
     }
 `;

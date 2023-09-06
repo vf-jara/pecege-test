@@ -15,7 +15,7 @@ export default function ListCard({contact} : CardProps) {
   return (
     <CardContainer>
         <div className="image">
-          <img src={`https://robohash.org/"${contact.name}".png?set=set2`} alt="" />
+          <img src={`https://robohash.org/"${contact.name}".png?set=set2`} alt="contact avatar" />
         </div>
         <div className="name">
          {contact.name}

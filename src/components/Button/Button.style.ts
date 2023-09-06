@@ -7,7 +7,8 @@ interface ButtonProps {
 
 export const StyledButton = styled.button<ButtonProps>`
   width: 100%;
-  max-width: 200px;;
+  min-width: 80px;
+  max-width: 200px;
   font-size: 16px;
   padding: 10px 20px;
   border: none;
@@ -34,7 +35,7 @@ export const StyledButton = styled.button<ButtonProps>`
   }
 
   &:hover{
-    background-color: #e8e8ef;
+    background-color: #f7f2f2;
   }
 
   &:active {
@@ -57,6 +58,11 @@ export const StyledButton = styled.button<ButtonProps>`
   ${(props) =>
     props.variant === 'red' &&
     `
-    background-color: #f44336;
+    background-color: rgba(205,20,40,0.8);
+    color: white;
+    &:hover{
+      background-color: #CD0028;
+      color: white;
+  }
   `}
 `;

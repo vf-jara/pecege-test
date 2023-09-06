@@ -53,4 +53,7 @@ export const ContentsContainer = styled.div`
   height: 100%;
   padding: 15px;
   display: block;
+  @media(max-width:480px){
+    padding-bottom: 80px;
+  }
 `;
