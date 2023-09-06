@@ -25,3 +25,4 @@ Para executar a aplicação execute os seguintes comandos:
 - Remoção de contatos
 - Edição de contatos
 - Responsividade entre Computador, Tablet e Mobile
+- Animações de entrada e transição
