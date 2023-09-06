@@ -1,6 +1,6 @@
 import Button from '../components/Button/Button.js'
 import {HomeContainer, Sidebar, ContentsContainer, NavigationContainer} from './Home.styles.js'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, ScrollRestoration } from 'react-router-dom'
 import ContactsIcon from '@mui/icons-material/Contacts';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Logo from '../assets/logo-fixed.svg'
@@ -30,6 +30,7 @@ export default function Home() {
         <Outlet/>
       </ContentsContainer>
     </HomeContainer>
+    <ScrollRestoration />
     </>
   )
 }
