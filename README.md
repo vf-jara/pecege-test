@@ -15,6 +15,8 @@ Para executar a aplicação execute os seguintes comandos:
   npm run dev
 ```
 
+O teste também pode ser visualizado rodando em produção [neste](https://pecege-test.vercel.app) link 
+
 ## Funcionalidades Implementadas
 
 - Leitura dos dados da API proposta
