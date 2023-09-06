@@ -6,6 +6,7 @@ import { ButtonsContainer, ContactData, DetailsContainer } from './EditContact.s
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '../Button/Button';
 import SaveIcon from '@mui/icons-material/Save';
+import { motion } from 'framer-motion'
 
 
 
@@ -49,48 +50,50 @@ export default function EditContact() {
   };
 
   return (
-    <DetailsContainer>
-      <div className='title'>
-        <h2>Editar {contact?.name}</h2>
-      </div>
-      <ContactData>
-      <label htmlFor='name'>Nome: </label>
-        <input
-          type="text"
-          placeholder="O belo nome de vosso contato"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          > 
-        </input>
-        <label htmlFor='phone'>Telefone: </label>
-        <input
-          type="text"
-          placeholder="(xx) xxxx-xxxx"
-          name="phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          > 
-        </input>
-        <label htmlFor='email'>
-          E-mail
-        </label>
-        <input
-          type="text"
-          placeholder="Ninguém mais usa Hotmail"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          >
-        </input>
-      </ContactData>
-      <ButtonsContainer>
-        <Button variant={'green'} onClick={handleSave}>
-          <SaveIcon fontSize='inherit' color='inherit'/>
-          Salvar
-        </Button>
-      </ButtonsContainer>
-      <Link to={`/details/${contact?.id}`} className='return'><CloseIcon color='error' fontSize='large'/></Link>
-      </DetailsContainer>
+    <motion.div initial={{opacity: 0}} animate={{opacity:1}} transition={{duration:0.3}}>
+      <DetailsContainer>
+        <div className='title'>
+          <h2>Editar {contact?.name}</h2>
+        </div>
+        <ContactData>
+        <label htmlFor='name'>Nome: </label>
+          <input
+            type="text"
+            placeholder="O belo nome de vosso contato"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            > 
+          </input>
+          <label htmlFor='phone'>Telefone: </label>
+          <input
+            type="text"
+            placeholder="(xx) xxxx-xxxx"
+            name="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            > 
+          </input>
+          <label htmlFor='email'>
+            E-mail
+          </label>
+          <input
+            type="text"
+            placeholder="Ninguém mais usa Hotmail"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            >
+          </input>
+        </ContactData>
+        <ButtonsContainer>
+          <Button variant={'green'} onClick={handleSave}>
+            <SaveIcon fontSize='inherit' color='inherit'/>
+            Salvar
+          </Button>
+        </ButtonsContainer>
+        <Link to={`/details/${contact?.id}`} className='return'><CloseIcon color='error' fontSize='large'/></Link>
+        </DetailsContainer>
+      </motion.div>
   );
 }

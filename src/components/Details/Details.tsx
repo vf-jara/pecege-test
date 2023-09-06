@@ -7,6 +7,7 @@ import { DetailsContainer, AvatarContainer, ContactData, ButtonsContainer, Modal
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CloseIcon from '@mui/icons-material/Close';
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function Details() {
   const { id } = useParams();
@@ -48,46 +49,55 @@ export default function Details() {
     <>
       {contact ? (
         <>
-        <DetailsContainer>
-            <AvatarContainer>
-              <img src={`https://robohash.org/"${contact.name}".png?set=set2`}></img>
-            </AvatarContainer>
-            <ContactData>
-              <h2><b>{contact.name}</b></h2>
-              <p><b>Phone:</b> {contact.phone}</p>
-              <p><b>E-mail:</b> {contact.email}</p>
-            </ContactData>
-          <ButtonsContainer>
-            <Button variant={'default'} onClick={handleEditClick}>
-             <EditIcon fontSize='small' color='inherit'/> 
-             <span>
-              Editar Contato
-             </span>
-            </Button>
-            <Button variant={'red'} onClick={handleDeleteClick}>
-              <DeleteForeverIcon fontSize='small' color='inherit'/>
+        <motion.div initial={{opacity: 0}} animate={{opacity:1}} transition={{duration:0.3}}>
+          <DetailsContainer>
+              <AvatarContainer>
+                <img src={`https://robohash.org/"${contact.name}".png?set=set2`}></img>
+              </AvatarContainer>
+              <ContactData>
+                <h2><b>{contact.name}</b></h2>
+                <p><b>Phone:</b> {contact.phone}</p>
+                <p><b>E-mail:</b> {contact.email}</p>
+              </ContactData>
+            <ButtonsContainer>
+              <Button variant={'default'} onClick={handleEditClick}>
+              <EditIcon fontSize='small' color='inherit'/> 
               <span>
-                Excluir Contato
+                Editar Contato
               </span>
-            </Button>
-          </ButtonsContainer>
-          <Link to="/" className='return'><CloseIcon color='error' fontSize='large'/></Link>
-          </DetailsContainer>
-          {showConfirmation && (
-            <Modal onClick={(e) => {
-              if(e.target === e.currentTarget){
-                setShowConfirmation(false);
-              }
-            }}>
-              <div>
-                <p>Tem certeza de que deseja excluir {contact.name}?</p>
-                <div>
-                  <Button variant='red' onClick={handleDeleteConfirm}>Sim</Button>
-                  <Button variant='default' onClick={() => setShowConfirmation(false)}>Não</Button>
-                </div>
-              </div>
-            </Modal>
-          )}
+              </Button>
+              <Button variant={'red'} onClick={handleDeleteClick}>
+                <DeleteForeverIcon fontSize='small' color='inherit'/>
+                <span>
+                  Excluir Contato
+                </span>
+              </Button>
+            </ButtonsContainer>
+            <Link to="/" className='return'><CloseIcon color='error' fontSize='large'/></Link>
+            </DetailsContainer>
+            <AnimatePresence>
+              {showConfirmation && (
+                <Modal onClick={(e) => {
+                  if(e.target === e.currentTarget){
+                    setShowConfirmation(false);
+                  }
+                }}>
+                  <motion.div
+                    initial={{ opacity: 0 , y: 200}}
+                    animate={{ opacity: 1 , y: 0 }}
+                    exit={{ opacity: 0, y: 200 }}
+                    transition={{duration: 0.1}}
+                    >
+                    <p>Tem certeza de que deseja excluir {contact.name}?</p>
+                    <div>
+                      <Button variant='red' onClick={handleDeleteConfirm}>Sim</Button>
+                      <Button variant='default' onClick={() => setShowConfirmation(false)}>Não</Button>
+                    </div>
+                  </motion.div>
+                </Modal>
+              )}
+            </AnimatePresence>
+          </motion.div>
           </>
       ) : (
         <div>Nenhum Contato Encontrado</div>

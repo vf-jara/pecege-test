@@ -6,6 +6,26 @@ import { fetchContacts } from '../../api/api';
 import SearchIcon from '@mui/icons-material/Search';
 import { SearchBar, SortContainer, ContactsContainer, Navigation, ListContainer, LoadingContainer } from './Contacts.style';
 import { ProgressBar } from 'react-loader-spinner';
+import { motion } from "framer-motion"
+
+const container = {
+  hidden:{
+    opacity: 0,
+  },
+  visible:{
+    opacity: 1,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.1
+    }
+  },
+}
+
+const variants = {
+  visible: { opacity: 1, y:0 },
+  hidden: { opacity: 0, y:15 },
+
+}
 
 interface Data {
   id: number;
@@ -62,35 +82,39 @@ export default function Contacts() {
   }
 
   return (
-    <ContactsContainer>
-      <Navigation>
-        <SearchBar>
-          <SearchIcon/>
-          <input
-            type="text"
-            placeholder="Buscar por nome"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            />
-        </SearchBar>
-        <SortContainer>
-          <select value={orderBy} onChange={handleOrderByChange}>
-            <option value="name">Ordenar por Nome</option>
-            <option value="id">Ordenar por ID</option>
-          </select>
-        </SortContainer>
-      </Navigation>
-      <ListContainer>
-        {filteredData !== undefined && filteredData.length > 0 ? (
-          filteredData.map((contact) => (
-            <Link to={`details/${contact.id}`} key={contact.id}>
-              <ListCard contact={contact} />
-            </Link>
-          ))
-          ) : (
-            "Nenhum Contato Encontrado"
-            )}
-      </ListContainer>
-    </ContactsContainer>
+      <ContactsContainer>
+        <Navigation>
+          <SearchBar>
+            <SearchIcon/>
+            <input
+              type="text"
+              placeholder="Buscar por nome"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              />
+          </SearchBar>
+          <SortContainer>
+            <select value={orderBy} onChange={handleOrderByChange}>
+              <option value="name">Ordenar por Nome</option>
+              <option value="id">Ordenar por ID</option>
+            </select>
+          </SortContainer>
+        </Navigation>
+        <ListContainer>
+          <motion.div variants={container} initial="hidden" animate="visible">
+          {filteredData !== undefined && filteredData.length > 0 ? (
+            filteredData.map((contact) => (
+              <Link to={`details/${contact.id}`} key={contact.id}>
+                <motion.div variants={variants} transition={{duration: 0.3}}>
+                  <ListCard contact={contact} />
+                </motion.div>
+              </Link>
+            ))
+            ) : (
+              "Nenhum Contato Encontrado"
+              )}
+              </motion.div>
+        </ListContainer>
+      </ContactsContainer>  
   );
 }
