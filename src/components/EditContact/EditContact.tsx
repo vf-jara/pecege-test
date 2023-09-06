@@ -90,7 +90,7 @@ export default function EditContact() {
           Salvar
         </Button>
       </ButtonsContainer>
-      <Link to="/" className='return'><CloseIcon color='error' fontSize='large'/></Link>
+      <Link to={`/details/${contact?.id}`} className='return'><CloseIcon color='error' fontSize='large'/></Link>
       </DetailsContainer>
   );
 }
