@@ -19,10 +19,19 @@ export const DetailsContainer = styled.div`
         right:10px;
         top:10px;
     }
+    >.title{
+        padding-bottom: 20px;
+        padding-left: 20px;
+        > h2{
+            font-size: 18px;
+        }
+    }
 `;
 
 export const ContactData = styled.div`
     width: 100%;
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
     padding: 10px 20px;
     border-radius: 25px;
@@ -35,6 +44,9 @@ export const ContactData = styled.div`
                 font-size: 14px;
             }
         }
+    }
+    > input {
+        margin-bottom: 15px;
     }
 
 `;

@@ -1,7 +1,13 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { editContact, fetchContacts } from '../../api/api';
+import { ButtonsContainer, ContactData, DetailsContainer } from './EditContact.style';
+import CloseIcon from '@mui/icons-material/Close';
+import Button from '../Button/Button';
+import SaveIcon from '@mui/icons-material/Save';
+
+
 
 export default function EditContact() {
   const { id } = useParams();
@@ -43,30 +49,48 @@ export default function EditContact() {
   };
 
   return (
-    <div>
-      <h2>Edit Contact</h2>
-      <input
-        type="text"
-        placeholder="Name"
-        name="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      ></input>
-      <input
-        type="text"
-        placeholder="Phone"
-        name="phone"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-      ></input>
-      <input
-        type="text"
-        placeholder="Email"
-        name="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      ></input>
-      <button onClick={handleSave}>Salvar Alterações</button>
-    </div>
+    <DetailsContainer>
+      <div className='title'>
+        <h2>Editar {contact?.name}</h2>
+      </div>
+      <ContactData>
+      <label htmlFor='name'>Nome: </label>
+        <input
+          type="text"
+          placeholder="O belo nome de vosso contato"
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          > 
+        </input>
+        <label htmlFor='phone'>Telefone: </label>
+        <input
+          type="text"
+          placeholder="(xx) xxxx-xxxx"
+          name="phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          > 
+        </input>
+        <label htmlFor='email'>
+          E-mail
+        </label>
+        <input
+          type="text"
+          placeholder="Ninguém mais usa Hotmail"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          >
+        </input>
+      </ContactData>
+      <ButtonsContainer>
+        <Button variant={'green'} onClick={handleSave}>
+          <SaveIcon fontSize='inherit' color='inherit'/>
+          Salvar
+        </Button>
+      </ButtonsContainer>
+      <Link to="/" className='return'><CloseIcon color='error' fontSize='large'/></Link>
+      </DetailsContainer>
   );
 }
