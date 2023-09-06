@@ -22,6 +22,11 @@ export default function AddContact() {
   //Função para salvar o novo contato
   const saveNewContact = () => {
 
+    if (name.trim() === '' || phone.trim() === '' || email.trim() === '') {
+      alert('Por favor, preencha todos os campos.');
+      return;
+    }
+
     const newContact = {
       id : -1,
       name,
